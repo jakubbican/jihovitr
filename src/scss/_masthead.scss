@@ -2,6 +2,7 @@
 
 header.masthead {
     padding-top: 10rem;
+    height: 100vh;
     padding-bottom: calc(10rem - #{$navbar-height});
     // replace the masthead.jpg image in the /assets/img directory to change the image
     // if the image name change, make sure to update the url path below!
@@ -9,8 +10,7 @@ header.masthead {
             to bottom,
             #{fade-out($brown, 0.2)} 0%,
             #{fade-out($brown, 0.2)} 100%
-        ),
-        url("../assets/img/bg-masthead.jpg");
+        );
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
