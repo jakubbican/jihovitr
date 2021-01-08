@@ -38,6 +38,7 @@
         "url": "https://github.com/StartBootstrap/startbootstrap-creative.git"
     },
     "dependencies": {
+        "@amcharts/amcharts4": "^4.10.13",
         "bootstrap": "4.5.3"
     },
     "devDependencies": {
