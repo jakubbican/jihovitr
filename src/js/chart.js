@@ -71,6 +71,7 @@ function createChart(container)
     chart.responsive.rules.push({
         relevant: function(target) {
           if (target.pixelHeight <= 500) {
+            console.log(target);
             return true;
           }
           
@@ -79,7 +80,7 @@ function createChart(container)
         state: function(target, stateId) {
           if (target instanceof am4charts.Legend) {
             var state = target.states.create(stateId);
-            state.properties.maxHeight = 220;
+            state.properties.maxHeight = chart.contentHeight;
             state.properties.position = "right";
             return state;
           }  
@@ -93,6 +94,7 @@ function createChart(container)
         return null;
         }
       });
+
 
     return chart;
 
@@ -160,7 +162,6 @@ function updateData(chart)
 
     //station data
     $.get(urlCurr, function(dataCurr) {
-        console.log("Stanice DL ok");
         dataCurr = JSON.parse(dataCurr.replace('(','').replace(');',''));
             
         var currData = [];
@@ -177,13 +178,8 @@ function updateData(chart)
             if (parseFloat(datapoint.VN) > 15) {make20++;}
         });
     
-   
-        console.log("Stanice PRS ok");
-
         chart.series.values.find(s => s.name = 'Stanice').data = currData;
         
-        console.log("Stanice ADD ok");
-
       },"text").fail(function(e,textStatus, error) {
         console.log("failCur",e,textStatus,error);
     });
@@ -192,7 +188,6 @@ function updateData(chart)
 
     //forecast data
     $.get(urlFor, function(dataFor) {
-        console.log("Forecast DL ok");
         dataFor = JSON.parse(dataFor.replace('(','').replace(');',''));
         $.each(dataFor.json, function(ksf,sf) {
             var linedata = [];
@@ -207,14 +202,10 @@ function updateData(chart)
                 if (parseFloat(datapoint.VN) > 15) {make20++;}
             });
 
-            console.log("Forecast PRS ok " + sf.nazevModelu);
-            
             var sr = chart.series.values.find(s => s.name == sf.nazevModelu);
             //console.log(chart.series.values);
             if (sr) sr.data = linedata;
             
-            console.log("Forecast ADD ok " + sf.nazevModelu);
-
         });
         },"text").fail(function(e,textStatus, error) {
         console.log("failFor",e,textStatus,error);
@@ -239,6 +230,14 @@ window.onload = function () {
         
         chart.xAxes.values[0].zoomToDates(new Date().setHours(6,0,0,0),new Date().setHours(6,0,0,0)+36*60*60*1000  );
     });
+
+    $(document).ready(function() {
+      console.log("doc ready");
+      $("#reloadButton").on('click', function() {
+        console.log("update trigger");
+        updateData(chart);
+      });
+    })
 
 
 }

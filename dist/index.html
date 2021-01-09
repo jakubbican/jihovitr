@@ -13,6 +13,7 @@
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <!-- Third party plugin CSS-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -20,17 +21,34 @@
     </head>
     <body id="page-top">
         <!-- Navigace-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Jihovítr</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <nav class="navbar navbar-expand-xl navbar-light fixed-top py-3" id="mainNav">
+            <div class="container position-relative">
+                <h1 class="navbar-brand mb-0">
+                    Jihovítr
+                    <navbar-text class="small text-muted mb-0">powered by</navbar-text>
+                    <a class="small mb-0" href="http://www.pocasimeteo.cz" target="_new">Počasí Meteo</a>
+                </h1>
+                <!--a.navbar-brand.text-muted.mr-5 Dehtář -->
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#aa">Dehtář</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#aa">Svět</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#aa">Vltavice</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#aa">Nastavení</a></li>
+                    <ul class="navbar-nav ml-auto my-2 my-xl-0">
+                        <li class="nav-item"><a class="nav-link my-xl-2" href="#aa">Vltavice</a></li>
+                        <li class="nav-item"><a class="nav-link my-xl-2" href="#aa">Dehtář</a></li>
+                        <li class="nav-item">
+                            <form class="form-inline mr-2">
+                                <input class="form-control" type="search" placeholder="Vyhledat stanici" aria-label="Vyhledat stanici" />
+                                <button class="btn btn-outline-success" type="submit">Zvolit</button>
+                            </form>
+                        </li>
+                        <li class="nav-item"></li>
                     </ul>
+                </div>
+                <div id="navbarMainCtrls">
+                    <button class="btn navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <button class="btn btn-outline-secondary mr-2" type="button"><i class="material-icons" id="refreshIcon">settings</i></button>
+                    <button class="btn btn-success" id="reloadButton" type="button">
+                        <i class="material-icons mr-1" id="refreshIcon">refresh</i>
+                        Obnovit
+                    </button>
                 </div>
             </div>
         </nav>

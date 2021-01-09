@@ -19,6 +19,7 @@ html(lang='cs')
         // Google fonts
         link(href='https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700', rel='stylesheet')
         link(href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic', rel='stylesheet', type='text/css')
+        link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
 
         // Third party plugin CSS
         link(href='https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css', rel='stylesheet')
@@ -29,22 +30,36 @@ html(lang='cs')
     body#page-top
 
         // Navigace
-        nav#mainNav.navbar.navbar-expand-lg.navbar-light.fixed-top.py-3
-            .container
-                a.navbar-brand.js-scroll-trigger(href='#page-top') Jihovítr
-                button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
-                    span.navbar-toggler-icon
-                #navbarResponsive.collapse.navbar-collapse
-                    ul.navbar-nav.ml-auto.my-2.my-lg-0
-                        li.nav-item
-                            a.nav-link.js-scroll-trigger(href='#aa') Dehtář
-                        li.nav-item
-                            a.nav-link.js-scroll-trigger(href='#aa') Svět
-                        li.nav-item
-                            a.nav-link.js-scroll-trigger(href='#aa') Vltavice
-                        li.nav-item
-                            a.nav-link.js-scroll-trigger(href='#aa') Nastavení
+        nav#mainNav.navbar.navbar-expand-xl.navbar-light.fixed-top.py-3
+            .container.position-relative
+                h1.navbar-brand.mb-0 Jihovítr 
+                    navbar-text.small.text-muted.mb-0 powered by 
+                    a.small.mb-0(href="http://www.pocasimeteo.cz", target="_new") Počasí Meteo
+                //a.navbar-brand.text-muted.mr-5 Dehtář 
 
+                #navbarResponsive.collapse.navbar-collapse
+                    ul.navbar-nav.ml-auto.my-2.my-xl-0
+                        li.nav-item
+                            a.nav-link.my-xl-2(href='#aa') Vltavice
+                        li.nav-item
+                            a.nav-link.my-xl-2(href='#aa') Dehtář
+                        li.nav-item 
+                            form.form-inline.mr-2
+                                input.form-control(type="search",placeholder="Vyhledat stanici",aria-label="Vyhledat stanici")
+                                button.btn.btn-outline-success(type="submit")
+                                    | Zvolit
+                        li.nav-item
+
+                #navbarMainCtrls
+                    button.btn.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
+                        span.navbar-toggler-icon
+                    button.btn.btn-outline-secondary.mr-2(type="button")
+                        i#refreshIcon.material-icons settings
+                    button#reloadButton.btn.btn-success(type='button')
+                        i#refreshIcon.material-icons.mr-1 refresh
+                        | Obnovit
+
+                
         // Graf
         header#chartSection.masthead
             .container.h-100.w-100

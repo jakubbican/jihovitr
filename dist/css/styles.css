@@ -10033,7 +10033,13 @@ hr.light {
 #mainNav .navbar-nav .nav-item .nav-link.active {
   color: #f4623a !important;
 }
-@media (min-width: 992px) {
+@media (max-height: 618px) {
+  #mainNav {
+    padding-bottom: 0.3rem !important;
+    padding-top: 0.3rem !important;
+  }
+}
+@media (min-width: 1200px) {
   #mainNav {
     box-shadow: none;
     background-color: transparent;
@@ -10069,6 +10075,22 @@ hr.light {
   }
   #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link:hover {
     color: #f4623a;
+  }
+}
+
+#refreshIcon {
+  font-size: 1.4rem;
+  vertical-align: sub;
+}
+
+#navbarMainCtrls {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+@media (min-width: 1200px) {
+  #navbarMainCtrls {
+    position: relative;
   }
 }
 
