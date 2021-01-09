@@ -3,7 +3,7 @@
 //- Override and add to color system
 
 $orange: #f4623a;
-$brown: #5c4d42;
+$brown: #fff9f5;
 
 //- Override primary color
 $primary: $orange;
@@ -19,4 +19,11 @@ $font-family-base: $font-family-serif;
 $headings-font-family: $font-family-sans-serif;
 
 //- Add custom variables
-$navbar-height: 4.5rem;
+$navbar-height: 3rem;
+
+$container-max-widths: (
+        sm: 940px,
+        md: 950px,
+        lg: 960px,
+        xl: 1280px
+) !default;

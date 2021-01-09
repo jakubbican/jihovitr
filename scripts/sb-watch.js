@@ -31,7 +31,7 @@ function _processFile(filePath, watchEvent) {
     
     if (!READY) {
         if (filePath.match(/\.pug$/)) {
-            if (!filePath.match(/includes/) && !filePath.match(/mixins/) && !filePath.match(/\/pug\/layouts\//)) {
+            if (!filePath.match(/includes/) && !filePath.match(/mixins/) && !filePath.match(/\\pug\\layouts\\/)) {
                 allPugFiles[filePath] = true;
             }    
         }    
@@ -52,11 +52,11 @@ function _processFile(filePath, watchEvent) {
         return;
     }
 
-    if (filePath.match(/src\/js\//)) {
+    if (filePath.match(/src\\js\\/)) {
         return renderScripts();
     }
 
-    if (filePath.match(/src\/assets\//)) {
+    if (filePath.match(/src\\assets\\/)) {
         return renderAssets();
     }
 
