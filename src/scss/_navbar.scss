@@ -99,7 +99,25 @@
 
 #navbarAnnotation {
     position:absolute;
-    top:22px;
-    left: 40px;
+    bottom:0px;
+    left: 0px;
+    padding-left: 0;
+    font-size: .8rem;
+    @include media-breakpoint-up(xl) {
+        padding-left: 15px;
+    }
+
+}
+
+#chartAnnotation {
+    position:absolute;
+    bottom:0px;
+    right: 10px;
+    left: auto;
     font-size: 1rem;
+    @media (max-height: 613px)
+    {
+        right:auto;
+        left: 80px;
+    }
 }

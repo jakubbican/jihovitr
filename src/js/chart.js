@@ -3,6 +3,8 @@
 
   var userKey = null;
   var stationList = null;
+  var currentStationName = null;
+  
   var serviceRoot = "https://giscloud.cadstudio.cz/_jb_test/pm";
   //var stationUpdateInterval = 24*60*60*1000;
   var stationUpdateInterval = 24*60*60*1000;
@@ -11,10 +13,11 @@
       {name: "MASTER"},
       {name: "WRF"},
       {name: "GFS"},
+      {name: "Arpege"},
       {name: "ICON"},
       {name: "COSMO"},
       {name: "YRno"},
-      //{name: "WRF"},
+
   ];
 
 
@@ -74,7 +77,6 @@
       chart.responsive.rules.push({
           relevant: function(target) {
             if (target.pixelHeight <= 500) {
-              console.log(target);
               return true;
             }
             
@@ -158,7 +160,7 @@
       chart.scrollbarX.series.push(sr);
   }
 
-  function loadStations()
+  function loadStations(callback)
   {
     //update list only if it has not been loaded in past day
     if (!(localStorage.stationJsonUpdate) || (new Date - new Date(localStorage.stationJsonUpdate))>stationUpdateInterval)
@@ -170,6 +172,7 @@
         if (localStorage.stationJson)
         {
           populateStationList();
+          callback();
         }
       },"text").fail(function(e,textStatus, error) {
           console.log("failStat",e,textStatus,error);
@@ -177,9 +180,8 @@
     }
     else
     {
-
       populateStationList();
-
+      callback();
     }
 
     
@@ -218,8 +220,14 @@
       var make15 = 0;
       var make20 = 0;
 
+      var station = stationList.names[currentStationName];
+      if (!station)
+      {
+        return;
+      }
+
       //station data
-      $.get(serviceRoot + "/meteostanice_webkamery/meteostanice_api.php?id=1&key="+userKey, function(dataCurr) {
+      $.get(serviceRoot + "/meteostanice_webkamery/meteostanice_api.php?id="+station.id_meteostanice+"&key="+userKey, function(dataCurr) {
           dataCurr = JSON.parse(dataCurr.replace('(','').replace(');',''));
               
           var currData = [];
@@ -238,6 +246,10 @@
       
           chart.series.values.find(s => s.name = 'Stanice').data = currData;
           
+          if (make15>0) chart.yAxes.values[0].max = 15 
+          else if (make20>0) chart.yAxes.values[0].max = 20
+          else chart.yAxes.values[0].max = 12;
+          
         },"text").fail(function(e,textStatus, error) {
           console.log("failCur",e,textStatus,error);
       });
@@ -245,7 +257,7 @@
       
 
       //forecast data
-      $.get(serviceRoot+"/data_predpovedi_meteostanice_api.php?lat=48.714780&lng=14.071328&key="+userKey, function(dataFor) {
+      $.get(serviceRoot+"/data_predpovedi_meteostanice_api.php?lat="+station.lat_meteostanice+"&lng="+station.lng_meteostanice+"&key="+userKey, function(dataFor) {
           dataFor = JSON.parse(dataFor.replace('(','').replace(');',''));
           $.each(dataFor.json, function(ksf,sf) {
               var linedata = [];
@@ -263,15 +275,25 @@
               var sr = chart.series.values.find(s => s.name == sf.nazevModelu);
               //console.log(chart.series.values);
               if (sr) sr.data = linedata;
+
+              if (make15>0) chart.yAxes.values[0].max = 15 
+              else if (make20>0) chart.yAxes.values[0].max = 20
+              else chart.yAxes.values[0].max = 12;
               
           });
           },"text").fail(function(e,textStatus, error) {
           console.log("failFor",e,textStatus,error);
         });;
+      
+  }
 
-        if (make15>0) chart.xAxes.values[0].max = 15;
-        if (make20>0) chart.xAxes.values[0].max = 20;
-        
+  function setCurrentStationNameFromHash(hash)
+  {
+    currentStationName = decodeURIComponent(hash.replace("#\/",""));
+    console.log("Current station name set: "+currentStationName);
+    $("#navbarTitle").text(currentStationName);
+    $(document).prop('title', currentStationName);
+    //console.log($("#navbarTitle"));
   }
 
   $(document).ready(function () {
@@ -306,31 +328,58 @@
       $("#pocasimeteo").hide();
       $("#footer").hide();
 
-      loadStations();
+      var chart = null;
 
-      var chart = createChart("chartContainer");
+      loadStations( function() {
 
-      initChartData(chart,forSeriesConfig);
+        setCurrentStationNameFromHash(window.location.hash);
+        if(!(stationList.names[currentStationName]))
+        {
+          window.location = "/#/Lipno";
+          setCurrentStationNameFromHash(window.location.hash);
+        }
 
 
-      updateData(chart);
+        //todo
+        $("#stationInput").autocomplete({
+          source: {"test": 1, "pepa": 2,"Lipno": 3}
+        });
+        
 
-
-      chart.events.on("ready", function () {
-          chart.xAxes.values[0].zoomToDates(new Date().setHours(6,0,0,0),new Date().setHours(6,0,0,0)+36*60*60*1000  );
-      });
-
-      $("#reloadButton").on('click', function() {
-        console.log("update trigger");
+        chart = createChart("chartContainer");
+        initChartData(chart,forSeriesConfig);
         updateData(chart);
+
+
+        chart.events.on("ready", function () {
+            //zoom to initial extent
+            chart.xAxes.values[0].zoomToDates(new Date().setHours(6,0,0,0),new Date().setHours(6,0,0,0)+36*60*60*1000  );
+
+            //enable reload button action
+            $("#reloadButton").on('click', function() {
+              console.log("update trigger");
+              updateData(chart);
+            });
+
+            //enable station selections
+            $(".station-link").on('click',function(e){
+              $('.navbar-collapse').collapse('hide');
+            });
+
+            $(window).bind( 'hashchange', function(e) { 
+              setCurrentStationNameFromHash(window.location.hash);
+              updateData(chart);
+            });
+        });
+
       });
 
-      $("#settingsButton").on('click', function() {
-        window.localStorage.removeItem("userKey");
-        location.reload();
-      });
+    };
 
-    }
+    $("#settingsButton").on('click', function() {
+      window.localStorage.removeItem("userKey");
+      location.reload();
+    });
 
   });
 

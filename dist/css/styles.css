@@ -10097,9 +10097,29 @@ hr.light {
 
 #navbarAnnotation {
   position: absolute;
-  top: 22px;
-  left: 40px;
+  bottom: 0px;
+  left: 0px;
+  padding-left: 0;
+  font-size: 0.8rem;
+}
+@media (min-width: 1200px) {
+  #navbarAnnotation {
+    padding-left: 15px;
+  }
+}
+
+#chartAnnotation {
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+  left: auto;
   font-size: 1rem;
+}
+@media (max-height: 613px) {
+  #chartAnnotation {
+    right: auto;
+    left: 80px;
+  }
 }
 
 header.masthead {
