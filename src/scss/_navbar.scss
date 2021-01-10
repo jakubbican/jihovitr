@@ -7,6 +7,7 @@
         font-family: $font-family-sans-serif;
         font-weight: $font-weight-bold;
         color: $gray-900;
+        font-size: 1.5rem;
     }
     .navbar-nav {
         .nav-item {
@@ -34,7 +35,7 @@
     @include media-breakpoint-up(xl) {
         // Base styling for the navbar - screen sizes greater than the large breakpoint
         box-shadow: none;
-        background-color: transparent;
+        background-color: #fff9f588;;
         .navbar-brand {
             color: $gray-900;
             &:hover {
@@ -93,4 +94,12 @@
     @include media-breakpoint-up(xl) {
         position: relative;
     }
+
+}
+
+#navbarAnnotation {
+    position:absolute;
+    top:22px;
+    left: 40px;
+    font-size: 1rem;
 }

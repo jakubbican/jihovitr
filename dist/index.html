@@ -25,8 +25,10 @@
             <div class="container position-relative">
                 <h1 class="navbar-brand mb-0">
                     Jihovítr
-                    <navbar-text class="small text-muted mb-0">powered by</navbar-text>
-                    <a class="small mb-0" href="http://www.pocasimeteo.cz" target="_new">Počasí Meteo</a>
+                    <div id="navbarAnnotation">
+                        <navbar-text class="small text-muted mb-0">powered by</navbar-text>
+                        <a class="small mb-0" href="http://www.pocasimeteo.cz" target="_new">Počasí Meteo</a>
+                    </div>
                 </h1>
                 <!--a.navbar-brand.text-muted.mr-5 Dehtář -->
                 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -44,9 +46,9 @@
                 </div>
                 <div id="navbarMainCtrls">
                     <button class="btn navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <button class="btn btn-outline-secondary mr-2" type="button"><i class="material-icons" id="refreshIcon">settings</i></button>
+                    <button class="btn btn-outline-warning my-1" id="settingsButton" type="button"><i class="material-icons" id="refreshIcon">logout</i></button>
                     <button class="btn btn-success" id="reloadButton" type="button">
-                        <i class="material-icons mr-1" id="refreshIcon">refresh</i>
+                        <i class="material-icons my-1" id="refreshIcon">refresh</i>
                         Obnovit
                     </button>
                 </div>
@@ -63,8 +65,27 @@
                     <div class="col-lg-8 text-center">
                         <h2 class="text-white mt-0">Aktivujte svůj přístup</h2>
                         <hr class="divider light my-4" />
-                        <p class="text-white-50 mb-4">Data meteostanic a předpovědí jsou poskytována systémem aplikace Počasí Meteo. Funkce aktivujete zadáním kódu v nastavení v menu aplikace. Kód získáte v aplikace Počasí Meteo nebo takAtak.</p>
-                        <a class="btn btn-light btn-xl js-scroll-trigger" href="#aa">Požádat o přístup!</a>
+                        <p class="text-black mb-4">
+                            Data meteostanic a předpovědí jsou poskytována systémem aplikace
+                            <a class="text-white" href="https://www.pocasimeteo.cz">Počasí Meteo.</a>
+                            Pro přístup k datům je nutné zadat platný osobní klíč zde nebo v nastavení webu.
+                        </p>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-6 text-center">
+                        <div class="input-group mb-3">
+                            <input class="form-control" id="userKeyInput" type="text" placeholder="Zadat kód" aria-label="Zadat kód" />
+                            <div class="input-group-append"><button class="btn btn-dark" id="userKeyButton" type="button">Zadat</button></div>
+                        </div>
+                    </div>
+                    <!--.col-lg-3.col-md-6.text-left-->
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <hr class="divider light my-4" />
+                        <p class="text-black mb-4">Kód získáte dle instrukcí na následujícím odkazu.</p>
+                        <a class="btn btn-light btn-xl" href="https://www.pocasimeteo.cz" target="_new">Požádat o přístup!</a>
                     </div>
                 </div>
             </div>
@@ -107,7 +128,7 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="bg-light py-5">
+        <footer class="bg-light py-5" id="footer">
             <div class="container"><div class="small text-center text-muted">Copyright © 2021 - Jakub Bican</div></div>
         </footer>
         <!-- Bootstrap core JS-->
