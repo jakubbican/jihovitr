@@ -27,10 +27,37 @@
             }
         }
     }
+    .menuButtonText {
+        display: inline;
+    }
+    #navbarAnnotation {
+        position:absolute;
+        bottom:0px;
+        left: 0px;
+        padding-left: 0;
+        font-size: .8rem;
+        @include media-breakpoint-up(xl) {
+            padding-left: 15px;
+        }
+    }
+    
     @media (max-height: 618px)
     {
         padding-bottom: .3rem !important;
         padding-top: .3rem !important;
+    }
+    @include media-breakpoint-down(xs) {
+        .navbar-brand {
+            display: none;
+        }
+        #navbarAnnotation {
+            display:none;
+        }
+    }
+    @include media-breakpoint-down(md) {
+        .menuButtonText {
+            display: none;
+        }    
     }
     @include media-breakpoint-up(xl) {
         // Base styling for the navbar - screen sizes greater than the large breakpoint
@@ -97,17 +124,6 @@
 
 }
 
-#navbarAnnotation {
-    position:absolute;
-    bottom:0px;
-    left: 0px;
-    padding-left: 0;
-    font-size: .8rem;
-    @include media-breakpoint-up(xl) {
-        padding-left: 15px;
-    }
-
-}
 
 #chartAnnotation {
     position:absolute;

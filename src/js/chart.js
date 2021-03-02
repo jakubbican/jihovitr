@@ -197,16 +197,18 @@
             lat_meteostanice: st.lat_meteostanice,
             lng_meteostanice: st.lng_meteostanice,
             nazev_meteostanice: st.nazev_meteostanice,
+            lok_meteostanice: st.lok_meteostanice,
             url_video: st.url_video
           };
         }
-        if(!stationList.names[st.nazev_meteostanice])
+        if(!stationList.names[st.nazev_meteostanice+ " (" + st.lok_meteostanice + ")"])
         {
-          stationList.names[st.nazev_meteostanice] = {
+          stationList.names[st.nazev_meteostanice+ " (" + st.lok_meteostanice + ")"] = {
             id_meteostanice: st.id_meteostanice,
             lat_meteostanice: st.lat_meteostanice,
             lng_meteostanice: st.lng_meteostanice,
             nazev_meteostanice: st.nazev_meteostanice,
+            lok_meteostanice: st.lok_meteostanice,
             url_video: st.url_video
           };
         }
@@ -291,7 +293,7 @@
   {
     currentStationName = decodeURIComponent(hash.replace("#\/",""));
     console.log("Current station name set: "+currentStationName);
-    $("#navbarTitle").text(currentStationName);
+    //$("#navbarTitle").text(currentStationName);
     $(document).prop('title', currentStationName);
     //console.log($("#navbarTitle"));
   }
@@ -335,15 +337,35 @@
         setCurrentStationNameFromHash(window.location.hash);
         if(!(stationList.names[currentStationName]))
         {
-          window.location = "/#/Lipno";
+          window.location = "/#/Lipno (Radslav)";
           setCurrentStationNameFromHash(window.location.hash);
         }
 
-
-        //todo
-        $("#stationInput").autocomplete({
-          source: {"test": 1, "pepa": 2,"Lipno": 3}
+        //init location picker
+        $('#frequentLocations').append($('<option>', {text:'Lipno (Radslav)'}));
+        $('#frequentLocations').append($('<option>', {text:'Dehtář (Radošovice)'}));
+        for(var nm in stationList.names) {
+          var st = stationList.names[nm];
+          $('#allLocations').append($('<option>', {text: nm}));
+        }
+        
+        
+        $("#stationInput").selectpicker({
+          style: 'btn-default',
+          size: false,
+          //container: 'body'
+          mobile: true,
         });
+        // $("#stationInput").selectpicker('val',currentStationName);
+        // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+        //   $("#stationInput").selectpicker('mobile');
+        // }
+        $("#stationInput").on("changed.bs.select",function(e, clickedIndex, newValue, oldValue) {
+          console.log(this.value, clickedIndex, newValue, oldValue);
+          window.location = "/#/"+this.value;
+          setCurrentStationNameFromHash(window.location.hash);
+        });
+      
         
 
         chart = createChart("chartContainer");

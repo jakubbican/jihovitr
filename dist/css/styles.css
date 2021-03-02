@@ -10034,10 +10034,38 @@ hr.light {
 #mainNav .navbar-nav .nav-item .nav-link.active {
   color: #f4623a !important;
 }
+#mainNav .menuButtonText {
+  display: inline;
+}
+#mainNav #navbarAnnotation {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  padding-left: 0;
+  font-size: 0.8rem;
+}
+@media (min-width: 1200px) {
+  #mainNav #navbarAnnotation {
+    padding-left: 15px;
+  }
+}
 @media (max-height: 618px) {
   #mainNav {
     padding-bottom: 0.3rem !important;
     padding-top: 0.3rem !important;
+  }
+}
+@media (max-width: 575.98px) {
+  #mainNav .navbar-brand {
+    display: none;
+  }
+  #mainNav #navbarAnnotation {
+    display: none;
+  }
+}
+@media (max-width: 991.98px) {
+  #mainNav .menuButtonText {
+    display: none;
   }
 }
 @media (min-width: 1200px) {
@@ -10092,19 +10120,6 @@ hr.light {
 @media (min-width: 1200px) {
   #navbarMainCtrls {
     position: relative;
-  }
-}
-
-#navbarAnnotation {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  padding-left: 0;
-  font-size: 0.8rem;
-}
-@media (min-width: 1200px) {
-  #navbarAnnotation {
-    padding-left: 15px;
   }
 }
 
