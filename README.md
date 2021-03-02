@@ -1,12 +1,9 @@
-# [Start Bootstrap - Creative](https://startbootstrap.com/theme/creative/)
+# [Jihovítr](https://startbootstrap.com/theme/creative/)
 
-[Creative](https://startbootstrap.com/theme/creative/) is a one page, creative website theme built with [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
+Prezentace meteorologických dat a modelů z aplikace [Počasí-Meteo](https://www.pocasi-meteo.cz/)
 
-## Preview
 
-[![Creative Preview](https://assets.startbootstrap.com/img/screenshots/themes/creative.png)](https://startbootstrap.github.io/startbootstrap-creative/)
-
-**[View Live Preview](https://startbootstrap.github.io/startbootstrap-creative/)**
+# [Odvozeno z Bootstrap-Creative](https://startbootstrap.com/theme/creative/)
 
 ## Status
 
